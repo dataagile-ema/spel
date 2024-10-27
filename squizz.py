@@ -257,6 +257,31 @@ def render_quiz():
             st.experimental_rerun()
 
 def main():
+    # Tvinga light mode
+    st.set_page_config(
+        page_title="Din App Titel",
+        page_icon="🎯",
+        initial_sidebar_state="expanded",
+        layout="wide",
+        menu_items=None
+    )
+
+    # Lägg till custom CSS för att tvinga light mode
+    st.markdown("""
+        <style>
+            /* Tvinga light mode styles */
+            .stApp {
+                background-color: white;
+                color: black;
+            }
+            
+            /* Säkerställ att text förblir svart */
+            p, h1, h2, h3, h4, h5, h6 {
+                color: black !important;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
     configure_app()
     init_session_state()
     
