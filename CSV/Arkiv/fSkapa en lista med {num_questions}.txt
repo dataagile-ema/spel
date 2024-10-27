@@ -1,0 +1,21 @@
+                    f"Skapa en lista med {num_questions} frågor och korta svar om ämnet '{rubrik}'. {beskrivning} "
+                    "Svaren ska vara korta och bestå av ett eller några få ord. Variera formuleringen av frågorna "
+                    "så att de inte alla börjar med 'Vilken', 'Vilket' eller 'Vilka'. Skriv på korrekt och lättläst svenska. "
+                    "Kontrollera att alla frågor och svar är faktamässigt korrekta. Formatet ska vara JSON med nyckeln 'questions' "
+                    "som innehåller en lista av objekt med 'question' och 'answer'."
+                )}
+
+
+
+        Steg 3: Skapa en lista med {num_questions} frågor och korta svar om ämnet '{rubrik} - {beskrivning}'.
+            - Frågorna ska vara varierade och intressanta.
+            - Variera gärna ordföljden i frågorna, några exempel:
+                * [frågeord]...
+                * ...[frågeord]...
+                * ...[frågeord]
+                * ...[frågeord] heter...
+                * ...[frågeord] kallas...
+                * Namnge...
+                * ...Namnge...
+                * [beskrivning följd av en fråga]
+                * [fråga]
