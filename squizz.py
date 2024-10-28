@@ -152,16 +152,15 @@ def render_category_selection():
                     'border': '#4A90E2'
                 })
                 
-                # Använd alltid outer_frame färgen, oavsett om kategorin är vald eller inte
+                # Färgad box med minimal margin i botten
                 st.markdown(f"""
                     <div style='
                         padding: 0.6rem;
                         background-color: {colors['outer_frame']};
                         border: 2px solid {colors['border']};
                         border-radius: 10px;
-                        margin: 5px;
+                        margin: 5px 0 0 0;
                         text-align: center;
-                        cursor: pointer;
                         height: 50px;
                         display: flex;
                         flex-direction: column;
@@ -172,16 +171,33 @@ def render_category_selection():
                     </div>
                 """, unsafe_allow_html=True)
                 
-                # Checkbox med "Välj" text
-                col1, col2, col3 = st.columns([1, 1, 1])
+                # CSS för att minska avstånd för checkbox
+                st.markdown("""
+                    <style>
+                    /* Minska padding på checkbox container */
+                    .stCheckbox {
+                        padding-top: 0 !important;
+                        margin-top: -8px !important;
+                    }
+                    
+                    /* Minska padding på label */
+                    .stCheckbox label {
+                        padding-top: 0 !important;
+                        margin-top: 0 !important;
+                    }
+                    
+                    /* Justera position för själva checkbox-inputen */
+                    .stCheckbox input {
+                        margin-top: 0 !important;
+                    }
+                    </style>
+                """, unsafe_allow_html=True)
+                
+                # Checkbox med kolumner för desktop-centrering
+                col1, col2, col3 = st.columns([1, 0.8, 1])
                 with col2:
-                    if st.checkbox("Välj", key=category['display_name'],
-                                value=is_selected):
-                        if display_name not in st.session_state.selected_category_names:
-                            st.session_state.selected_category_names.append(display_name)
-                    else:
-                        if display_name in st.session_state.selected_category_names:
-                            st.session_state.selected_category_names.remove(display_name)
+                    st.checkbox("Välj", key=category['display_name'],
+                              value=is_selected)
 
     # Visa antal valda kategorier
     st.markdown(f"### Valda kategorier: {len(st.session_state.selected_category_names)}")
