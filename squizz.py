@@ -19,14 +19,6 @@ def get_base64_encoded_image(image_path):
     with open(image_path, "rb") as image_file:
         return base64.b64encode(image_file.read()).decode()
 
-# Konfigurera app
-def configure_app():
-    st.set_page_config(
-        page_title="Squizz!",
-        page_icon="🎯",  # Tillfällig emoji-ikon
-        layout="centered"
-    )
-
 # Session state hantering
 def init_session_state():
     default_states = {
@@ -259,7 +251,7 @@ def render_quiz():
 def main():
     # Tvinga light mode
     st.set_page_config(
-        page_title="Din App Titel",
+        page_title="Squizz!",  # Uppdaterat till rätt namn
         page_icon="🎯",
         initial_sidebar_state="expanded",
         layout="wide",
@@ -282,7 +274,6 @@ def main():
         </style>
     """, unsafe_allow_html=True)
 
-    configure_app()
     init_session_state()
     
     if not st.session_state.quiz_started:
