@@ -144,24 +144,25 @@ def render_category_selection():
         for col_idx, category in enumerate(all_categories[i:i + cols_per_row]):
             with cols[col_idx]:
                 display_name = category['display_name']
+                is_selected = display_name in st.session_state.selected_category_names
+                
                 # Hämta färgschema för kategorin
                 colors = color_schemes.get(display_name, {
-                    'outer_frame': '#F0F8FF',  # Default bakgrundsfärg
-                    'inner_frame': '#E6FFE6',  # Default markerad färg
-                    'border': '#4A90E2'        # Default border färg
+                    'outer_frame': '#F0F8FF',
+                    'border': '#4A90E2'
                 })
                 
-                # Uppdaterad CSS med färger från CSV
+                # Använd alltid outer_frame färgen, oavsett om kategorin är vald eller inte
                 st.markdown(f"""
                     <div style='
-                        padding: 0.8rem;
-                        background-color: {colors['inner_frame'] if display_name in st.session_state.selected_category_names else colors['outer_frame']};
+                        padding: 0.6rem;
+                        background-color: {colors['outer_frame']};
                         border: 2px solid {colors['border']};
                         border-radius: 10px;
                         margin: 5px;
                         text-align: center;
                         cursor: pointer;
-                        height: 70px;
+                        height: 50px;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
@@ -171,16 +172,16 @@ def render_category_selection():
                     </div>
                 """, unsafe_allow_html=True)
                 
-                # Checkbox centrerad under kortet
+                # Checkbox med "Välj" text
                 col1, col2, col3 = st.columns([1, 1, 1])
                 with col2:
                     if st.checkbox("Välj", key=category['display_name'],
-                                value=category['display_name'] in st.session_state.selected_category_names):
-                        if category['display_name'] not in st.session_state.selected_category_names:
-                            st.session_state.selected_category_names.append(category['display_name'])
+                                value=is_selected):
+                        if display_name not in st.session_state.selected_category_names:
+                            st.session_state.selected_category_names.append(display_name)
                     else:
-                        if category['display_name'] in st.session_state.selected_category_names:
-                            st.session_state.selected_category_names.remove(category['display_name'])
+                        if display_name in st.session_state.selected_category_names:
+                            st.session_state.selected_category_names.remove(display_name)
 
     # Visa antal valda kategorier
     st.markdown(f"### Valda kategorier: {len(st.session_state.selected_category_names)}")
